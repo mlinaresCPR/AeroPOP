@@ -7,8 +7,12 @@ package com.aeropop.aeropop;
 
 /**
  *
- * @author mlinares
+ * @author TODO
  */
 public class AeroPOP {
+    private static final ConnectionDB bbdd = ConnectionDB.getInstance();
     
+    public static void main(String[] args) {
+        
+    }
 }
