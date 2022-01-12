@@ -5,7 +5,12 @@
  */
 package com.aeropop.aeropop;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,16 +56,15 @@ public class Queries {
      /**
      * Muestra los datos de la tabla pasajeros
      */
-    public void mostrarPasajeros(ConnectionDB bbdd) {
+    public static void mostrarPasajeros(ConnectionDB bbdd) {
         ResultSet rs = cargaDatos(bbdd, "SELECT * FROM pasajeros");
         System.out.println("PASAJERO  VUELO  PLAZA  FUMADOR");
         try {
             while (rs.next()) {
-                String codigo = Integer.toString(rs.getInt("NUMERO"));
+                String codigo = Integer.toString(rs.getInt("ID"));
                 String codigoVuelo = rs.getString("CODIGO_VUELO");
                 String plaza = rs.getString("TIPO_PLAZA");
                 boolean fumador = rs.getBoolean("fumador");
-
                 System.out.println(codigo + "   " + codigoVuelo + "   " + plaza + "   " + fumador);
             }
         } catch (SQLException e) {
@@ -69,12 +73,12 @@ public class Queries {
         System.out.println("****************************************************");
     }
     
-    public void mostrarPasajerosVuelo(ConnectionDB bbdd, String codigo) {
+    public static void mostrarPasajerosVuelo(ConnectionDB bbdd, String codigo) {
         ResultSet rs = cargaDatos(bbdd, "SELECT * FROM pasajeros WHERE  codigo_vuelo='" + codigo + "'");
         System.out.println("PASAJERO  VUELO  PLAZA  FUMADOR");
         try {
             while (rs.next()) {
-                String numero = Integer.toString(rs.getInt("NUMERO"));
+                String numero = Integer.toString(rs.getInt("ID"));
                 String codigoVuelo = rs.getString("CODIGO_VUELO");
                 String plaza = rs.getString("TIPO_PLAZA");
                 boolean fumador = rs.getBoolean("fumador");
@@ -86,14 +90,16 @@ public class Queries {
         System.out.println("****************************************************");
     }
 
-    public void insertarVuelo(ConnectionDB bbdd, String codigo, Date hora, String destino, String procede, int pF, int pNof, int pT, int pP) {
+    /**
+     * Inserta un vuelo en la BBDD
+     */
+    public static void insertarVuelo(ConnectionDB bbdd, String codigo, Date hora, String destino, String procede, int pF, int pNof, int pT, int pP) {
         Timestamp timestamp = new Timestamp(hora.getTime());
         String insertDatosQL = "INSERT INTO vuelos VALUES "
                 + "(?,?,?,?,?,?,?,?)";
         try {
             // preparedStatement = dbConnection.prepareStatement(insertTableSQL);
             PreparedStatement stmt = bbdd.getConn().prepareStatement(insertDatosQL);
-            
             stmt.setString(1, codigo);
             stmt.setTimestamp(2,timestamp);
             stmt.setString(3, destino);
@@ -102,7 +108,6 @@ public class Queries {
             stmt.setInt(6, pNof);
             stmt.setInt(7, pT);
             stmt.setInt(8, pP);
-
             stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
