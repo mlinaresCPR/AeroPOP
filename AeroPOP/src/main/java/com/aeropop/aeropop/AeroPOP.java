@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  */
 public class AeroPOP {
     private static final ConnectionDB bbdd = ConnectionDB.getInstance();
-    
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int opcion;
@@ -35,20 +35,20 @@ public class AeroPOP {
             System.out.println("Elija una opcion: ");
             try {
                 opcion = Integer.parseInt(input.nextLine());
-                if(opcion < 0 || opcion > 6) {
+                if (opcion < 0 || opcion > 6) {
                     System.out.println("Introduce una opción válida...");
-                }else {
+                } else {
                     menuOpciones(opcion, input);
                 }
-            }catch(NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 System.out.println("ERROR: Debe introducir solo números...");
                 opcion = Integer.MIN_VALUE;
             }
 
         } while (opcion >= 0 && opcion < 6);
-        
+
     }
-    
+
     public static void menuOpciones(int opcion, Scanner input) {
         switch (opcion) {
             case 0:
@@ -84,9 +84,11 @@ public class AeroPOP {
                 break;
             case 4:
                 System.out.println("Has seleccionado la opción 4");
+                Queries.verVuelosCreados(bbdd, input);
                 break;
             case 5:
                 System.out.println("Has seleccionado la opción 5");
+                Queries.cambiarFumadores(bbdd);
                 break;
             case 6:
                 System.out.println("Gracias por utilizar el programa que tenga un buen dia");
@@ -94,7 +96,7 @@ public class AeroPOP {
         }
     }
 
-   
+
     public static String setcodigoVuelo(Scanner input) {
         String codigoVuelo;
         boolean formatoCorrecto = true;
@@ -108,13 +110,13 @@ public class AeroPOP {
             if (!formatoCorrecto) {
                 System.out.println("Formato incorrecto");
             }
-            
+
         } while (!formatoCorrecto);
         return codigoVuelo;
     }
 
     /*Este metodo valida que la cadena de fecha y hora introducida tenga valores correctos
-    *recibe el String fechaHora que ya tiene un formato correcto
+     *recibe el String fechaHora que ya tiene un formato correcto
      */
     public static boolean entrarFecha(String fechaHora) {
         if (fechaHora == null) {
@@ -156,7 +158,7 @@ public class AeroPOP {
         if (mes < 1 || mes > 12) {
             validoFecha = false;
         }
-        /*Para saber si un año es bisiesto se puede aplicar una simple formula, 
+        /*Para saber si un año es bisiesto se puede aplicar una simple formula,
         la cual dice que un año es bisiesto si es divisible por cuatro
         , excepto los principios de año (los divisibles por 100),
         que para ser bisiestos deben de ser divisibles también por 400.*/
@@ -214,7 +216,8 @@ public class AeroPOP {
     public static int setNumeros(Scanner input) {
 
         int dato = 0;
-        boolean correcto;;
+        boolean correcto;
+        ;
         do {
             correcto = true;
             System.out.println("Introduzca un número:");
