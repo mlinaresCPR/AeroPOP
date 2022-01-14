@@ -30,6 +30,15 @@ public class ConnectionDB {
     public Connection getConn() {
         return conn;
     }
+    
+    public void closeConn() {
+        try  {
+            conn.close();
+        }catch(SQLException sqle) {
+            sqle.getLocalizedMessage();
+        }
+        
+    }
    
    
    // Conexión a la BBDD
