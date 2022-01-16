@@ -70,7 +70,7 @@ public class ConnectionDB {
 
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());
-            System.out.println("ERROR: No se puede conectar con la base de datos");
+            System.out.println("ERROR: No se puede conectar con la base de datos ");
             System.exit(1);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);

@@ -50,7 +50,7 @@ public class AeroPOP {
 
             } catch (NumberFormatException nfe) {
                 System.out.println("ERROR: Debe introducir solo números...");
-                System.out.println("Pulsa Intro para continuar...");
+                System.out.println("Pulsa Intro para continuar ...");
                 input.nextLine();
                 opcion = Integer.MIN_VALUE;
             }

@@ -189,7 +189,7 @@ public class Queries {
             stmt = bbdd.getConn().prepareStatement("DELETE FROM vuelos WHERE codigo_vuelo = ?");
             stmt.setString(1, codigo);
             stmt.executeUpdate();
-            System.out.println("VUELO ELIMINADO CON ÉXITO!");
+            System.out.println("VUELO ELIMINADO CON ÉXITO! ");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
