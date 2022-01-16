@@ -7,7 +7,7 @@ package com.aeropop.aeropop;
 
 /**
  *
- * @author TODO
+ * @author mlinares, AlexPrieto01, YudaRamos, JGilmar
  */
 import java.sql.*;
 import java.util.Properties;
