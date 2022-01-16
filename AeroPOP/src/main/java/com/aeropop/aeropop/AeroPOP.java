@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author TODO
+ * @author mlinares, AlexPrieto01, YudaRamos, JGilmar
  */
 public class AeroPOP {
 

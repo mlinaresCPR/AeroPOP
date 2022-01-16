@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author TODO
+ * @author mlinares, AlexPrieto01, YudaRamos, JGilmar
  */
 public class Queries {
 
