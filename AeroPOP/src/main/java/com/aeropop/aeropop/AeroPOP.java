@@ -28,13 +28,13 @@ public class AeroPOP {
         // Se muestra el menú hasta que se introduzca una opción valida o se salga del programa.
         do {
             System.out.println("*************SISTEMA DE GESTIÓN AEROPOP*************");
-            System.out.println("0.Mostrar y pedir información de la BBDD en general.");
-            System.out.println("1.Mostrar la información de la tabla de pasajeros.");
-            System.out.println("2.Ver la información de los pasajeros de un vuelo.");
-            System.out.println("3.Planificar vuelo.");
-            System.out.println("4.Eliminar vuelo.");
-            System.out.println("5.Modificar los vuelos de fumadores a no fumadores.");
-            System.out.println("6.Salir.");
+            System.out.println("0. Mostrar y pedir información de la BBDD en general.");
+            System.out.println("1. Mostrar la información de la tabla de pasajeros.");
+            System.out.println("2. Ver la información de los pasajeros de un vuelo.");
+            System.out.println("3. Planificar vuelo.");
+            System.out.println("4. Eliminar vuelo.");
+            System.out.println("5. Modificar los vuelos de fumadores a no fumadores.");
+            System.out.println("6. Salir.");
 
             try {
                 System.out.println("Elija una opcion: ");
@@ -72,27 +72,44 @@ public class AeroPOP {
 
         switch (opcion) {
             case 0:
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                System.out.println("\nMOSTRANDO VUELOS ... ");
                 Queries.mostrarVuelos(bbdd);
+                System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 1:
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                System.out.println("\nMOSTRANDO PASAJEROS ... ");
                 Queries.mostrarPasajeros(bbdd);
+                System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 2:
+                System.out.println("-----------------------------------------------------------------------------------------------------");
                 Queries.mostrarPasajerosVuelo(bbdd, setCodigoVuelo(input));
+                System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 3:
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                System.out.println("\nCREANDO UN VUELO ...");
                 prepararNuevoVuelo(input);
+                System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 4:
-                System.out.println("Has seleccionado la opción 4");
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                System.out.println("\nELIMINANDO UN VUELO ...");
                 Queries.verVuelosCreados(bbdd, input);
+                System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 5:
-                System.out.println("Has seleccionado la opción 5");
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                System.out.println("CAMBIANDO SITUACIÓN DE PLAZAS FUMADORES ...");
                 Queries.cambiarFumadores(bbdd, input);
+                System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 6:
-                System.out.println("Gracias por utilizar el programa que tenga un buen dia");
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                System.out.println("GRACIAS POR UTILIZAR EL PROGRAMA, BUEN DÍA. VUELVE PRONTO!!!");
+                System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
         }
         System.out.println("Pulsa Intro para continuar...");
@@ -114,21 +131,32 @@ public class AeroPOP {
 
         System.out.println("Introduzca destino del vuelo: ");
         String destino = setDatos(input);
+        
+        System.out.println("\n***Número de plazas totales por defecto(400)\n");
+        int pF;
+        do {            
+            System.out.println("Introduzca número de plazas para FUMADOR");
+            pF = setNumeros(input);
+            if(pF > 400)
+                System.out.println("El número de plazas de los FUMADORES no debe exceder al de plazas totales(400)");
+        } while (pF >400);
 
-        System.out.println("Introduzaca numero de plazas para fumador");
-        int pF = setNumeros(input);
+        int pNof = 400 - pF;
+        System.out.println("Número de plazas para NO FUMADOR:" + pNof);
+        
+        int pT;
+        do {            
+            System.out.println("Introduzca número de plazas tipo TURISTA");
+            pT = setNumeros(input);
+            if(pT > 400)
+                System.out.println("El número de plazas de tipo TURISTA no debe exceder al de plazas totales");
+        } while (pT >400);
 
-        System.out.println("Introduzaca numero de plazas para NO fumador");
-        int pNof = setNumeros(input);
-
-        System.out.println("Introduzaca numero de plazas tipo TURISTA");
-        int pT = setNumeros(input);
-
-        System.out.println("Introduzca numero de plazas tipo PRIMERA");
-        int pP = setNumeros(input);
-
+        int pP = 400 -pT;
+        System.out.println("Número de plazas tipo PRIMERA: " + pP);
+        
         // Validación de entrada por parte del usuario.
-        System.out.println("**********NUEVO VUELO***********");
+        System.out.println("\n**********NUEVO VUELO***********");
         System.out.println("Código Vuelo: " + codigoVuelo);
         System.out.println("Fecha: " + fechaHora);
         System.out.println("Destino: " + destino);
@@ -137,7 +165,7 @@ public class AeroPOP {
         System.out.println("Plazas No Fumador: " + pNof);
         System.out.println("Plazas Turista: " + pT);
         System.out.println("Plazas Primera: " + pP);
-        System.out.println("*********************************");
+        System.out.println("*********************************\n");
 
         String confirma;
         do {
@@ -169,7 +197,7 @@ public class AeroPOP {
         Matcher matcher;
 
         do {
-            System.out.println("Introduzca un codigo de vuelo con el siguiente formato "
+            System.out.println("\nIntroduzca un codigo de vuelo con el siguiente formato "
                     + "=> 2*LETRAS + (2-3)*(LETRAS-NÚMEROS) + (3-4)*(NUMEROS): ");
             codigoVuelo = input.nextLine();
             Pattern pattern = Pattern.compile(regexformato);
@@ -197,7 +225,7 @@ public class AeroPOP {
         
         do {
             formatoCorrecto = true;
-            System.out.println("Escriba la fecha y hora de salida del vuelo en formato "
+            System.out.println("\nEscriba la fecha y hora de salida del vuelo en formato "
                     + "=>YYYY-MM-DD HH:MM :");
             String fechaHora = input.nextLine();
 
@@ -291,7 +319,7 @@ public class AeroPOP {
         Matcher matcher;
         String formato = "[A-Z]{2,254}";
         do {
-            System.out.print("Introduza el dato:");
+            //System.out.print("Introduza el dato:");
             dato = input.nextLine().toUpperCase();
             Pattern pattern = Pattern.compile(formato);
             matcher = pattern.matcher(dato);
@@ -310,7 +338,7 @@ public class AeroPOP {
         boolean correcto;
         do {
             correcto = true;
-            System.out.println("Introduzca un número:");
+            //System.out.println("Introduzca un número:");
             try {
                 dato = Integer.parseInt(input.nextLine());
             } catch (NumberFormatException nfe) {

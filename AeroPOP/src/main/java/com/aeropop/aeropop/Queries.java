@@ -53,14 +53,14 @@ public class Queries {
             // Verifica que la Query tenga contenido.
             if (rs.isBeforeFirst()) {
                 System.out.println("*******************TABLA VUELOS********************");
-                System.out.println("CODIGO      FECHA-HORA      PROCEDENCIA  DESTINO");
+                System.out.println("CODIGO       FECHA-HORA            PROCEDENCIA      DESTINO");
                 // Carga los datos de cada entrada.
                 while (rs.next()) {
                     String codigoVuelo = rs.getString("CODIGO_VUELO");
                     String fecha = rs.getString("HORA_SALIDA");
                     String procedencia = rs.getString("PROCEDENCIA");
                     String destino = rs.getString("DESTINO");
-                    System.out.println(codigoVuelo + "   " + fecha + "   " + procedencia + "    " + destino);
+                    System.out.println(codigoVuelo + "   " + fecha + "   " + procedencia + "         " + destino);
                 }
             } else {
                 System.out.println("ERROR: LA CONSULTA NO HA DEVUELTO RESULTADOS...");
@@ -73,7 +73,7 @@ public class Queries {
 
     /**
      * Muestra los datos de la tabla pasajeros.
-     * 
+     *
      * @param bbdd Objeto ConnectionDB con la conexión a la BBDD.
      */
     public static void mostrarPasajeros(ConnectionDB bbdd) {
@@ -105,9 +105,10 @@ public class Queries {
             System.out.println(e.getMessage());
         }
     }
+
     /**
      * Muestra los pasajeros de un vuelo, indicandio el código de vuelo.
-     * 
+     *
      * @param bbdd Objeto ConnectionDB con la conexión a la BBDD.
      * @param codigo Código de vuelo.
      */
@@ -115,7 +116,7 @@ public class Queries {
         ResultSet rs = cargaDatos(bbdd, "SELECT * FROM pasajeros WHERE  codigo_vuelo='" + codigo + "'");
         try {
             if (rs.isBeforeFirst()) {
-                System.out.println("**************PASAJEROS VUELO " + codigo + "************");
+                System.out.println("\n************** PASAJEROS VUELO " + codigo + " ************");
                 System.out.println("PASAJERO  VUELO  PLAZA  FUMADOR");
                 while (rs.next()) {
                     String numero = Integer.toString(rs.getInt("ID"));
@@ -139,7 +140,8 @@ public class Queries {
     }
 
     /**
-     * Inserta un nuevo vuelo en la BBDD. 
+     * Inserta un nuevo vuelo en la BBDD.
+     *
      * @param bbdd Objeto ConnectionDB con la conexión a la BBDD.
      * @param codigo Código de vuelo.
      * @param hora Hora de Salida.
@@ -253,7 +255,7 @@ public class Queries {
      * datos a 'NO' en caso de ser 'SI'. Además los valores de la columna 'pF'
      * (plazas fumadores) en la tabla 'Vuelos' pasa a 0 y su anterior valor se
      * suma a 'pNoF' (plazas no fumadores).
-     * 
+     *
      * @param bbdd Objeto ConnectionDB con la conexión a la BBDD.
      */
     public static void cambiarFumadores(ConnectionDB bbdd, Scanner input) {
@@ -290,6 +292,6 @@ public class Queries {
         } else {
             System.out.println("Operación Cancelada...");
         }
-        
+
     }
 }
