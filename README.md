@@ -41,7 +41,7 @@ La base de datos tendrá 2 tablas:
 
 ------------
 
-###Explicación de la aplicación:
+### Explicación de la aplicación:
 La aplicación es para una aerolínea e interactúa con la base de datos a través de un menú mostrado por consola.
 Consta de los siguientes opciones de menú :
 - 0 Mostrar y pedir información de la BBDD en general.
